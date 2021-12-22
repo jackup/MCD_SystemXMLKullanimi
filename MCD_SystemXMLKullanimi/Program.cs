@@ -39,10 +39,36 @@ namespace MCD_SystemXMLKullanimi
 
             #region XML Data Okuma
 
-            XmlReader xRead = XmlReader.Create(@"c:\\XML\\Personellerim.xml");
-            while (xRead.Read())
+            //XmlReader xRead = XmlReader.Create(@"c:\\XML\\Personellerim.xml");
+            //while (xRead.Read())
+            //{
+            //    Console.WriteLine($"{xRead.Name.ToString()}-{xRead.Value.ToString()}");
+            //}
+
+            XmlReader reader = XmlReader.Create(@"C:\XML\personellerim.xml");
+            while (reader.Read())
             {
-                Console.WriteLine($"{xRead.Name.ToString()}-{xRead.Value.ToString()}");
+                if (reader.IsStartElement())
+                {
+                    if (reader.MoveToFirstAttribute())
+                    {
+                        Console.WriteLine("ID : " + reader.Value.ToString());
+                    }
+                    //return only when you have START 
+                    switch (reader.Name.ToString())
+                    {
+                        case "İsim":
+                            Console.WriteLine("İsim : " + reader.ReadString());
+                            break;
+                        case "Soyisim":
+                            Console.WriteLine("Soyisim : " + reader.ReadString());
+                            break;
+                        case "EmailAdres":
+                            Console.WriteLine("EmailAdres : " + reader.ReadString());
+                            Console.WriteLine("");
+                            break;
+                    }
+                }
             }
 
             #endregion
